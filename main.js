@@ -564,7 +564,7 @@ function pauseTask(command, val){
                 param = {id: ids.join(',')};
             }
         } catch (e) {
-
+        // do nothing
         }
     } else {
         param = {id: val};
@@ -681,7 +681,7 @@ async function getStatusPlayer(cb){
                 }
                 resolve(true);
             });
-        })
+        });
     }
 
     for (const playerid of Object.keys(states.AudioStation.players)) {
@@ -929,12 +929,12 @@ function parsePlayListRemotePlayer(playerid, res){
                     'len':     '00:00',
                     'rating':  '',
                     'cover':   ''
-                }
+                };
             });
         }
         states.AudioStation.players[playerid].playlist = JSON.stringify(playlist);
     } catch (e) {
-
+        // empty block
     }
 }
 
@@ -958,7 +958,7 @@ function parselistRadios(res){
                         'len':     '00:00',
                         'rating':  '',
                         'cover':   ''
-                    }
+                    };
                 });
                 Object.keys(states.AudioStation.players).forEach((playerid) => {
                     states.AudioStation.players[playerid].favoriteRadio = JSON.stringify(radio_playlist);
@@ -1029,7 +1029,7 @@ function parseListSharings(res){
                 'url':            arr[i].url,
                 'request_info':   arr[i].request_info,
                 'request_name':   arr[i].request_name
-            }
+            };
         }
     });
     states.FileStation.sharing['list'] = JSON.stringify(temp_array);
@@ -1124,14 +1124,14 @@ function parseInfo(res, api){
 }
 
 function setAllInstalledForDsm7 (VersionString){
-    if(VersionString === null ) return
-    const VersionMatch = VersionString.match(/^DSM ([0-9]+)\./)
-    if (!VersionMatch || !VersionMatch[1]) return
+    if(VersionString === null ) return;
+    const VersionMatch = VersionString.match(/^DSM ([0-9]+)\./);
+    if (!VersionMatch || !VersionMatch[1]) return;
     const VersionNumString = VersionMatch[1];
-    info(`DSM ${VersionNumString}`)
+    info(`DSM ${VersionNumString}`);
 
     if(VersionNumString === '7' || VersionNumString === 7){
-        info('DSM 7 detected, set all to true')
+        info('DSM 7 detected, set all to true');
         states.api['dl'].installed = true;
         states.api['as'].installed = true;
         states.api['vs'].installed = true;
@@ -1165,19 +1165,19 @@ function parseSystemStatus(res){
 
 /** **************************************************************/
 
-function parseTest(res){
-    debug(`test - Response: ${JSON.stringify(res)}`);
+// function parseTest(res){
+//    debug(`test - Response: ${JSON.stringify(res)}`);
 
-    //{api: 'ss', method: 'listEvents', params: {locked: 0, reason: 2, limit: 1, /*cameraIds: '2', */version: 4}, ParseFunction: parse.listEvents}, // Рабочий вариант
-    //{api: 'fs', method: 'listSharings', params: {offset: 0}, ParseFunction: parse.test},
-    //{api: 'ss', method: 'getInfoCamera', params: {optimize: true, streamInfo: true, ptz: true, deviceOutCap: true, fisheye: true, basic: true, cameraIds: '2', eventDetection: true, privCamType: 1, camAppInfo: true, version: 8}, ParseFunction: parse.test},
-    //{api: 'ss', method: 'OneTimeCameraStatus', params: {id_list: "2"}, ParseFunction: parse.test},
+//{api: 'ss', method: 'listEvents', params: {locked: 0, reason: 2, limit: 1, /*cameraIds: '2', */version: 4}, ParseFunction: parse.listEvents}, // Рабочий вариант
+//{api: 'fs', method: 'listSharings', params: {offset: 0}, ParseFunction: parse.test},
+//{api: 'ss', method: 'getInfoCamera', params: {optimize: true, streamInfo: true, ptz: true, deviceOutCap: true, fisheye: true, basic: true, cameraIds: '2', eventDetection: true, privCamType: 1, camAppInfo: true, version: 8}, ParseFunction: parse.test},
+//{api: 'ss', method: 'OneTimeCameraStatus', params: {id_list: "2"}, ParseFunction: parse.test},
 
-    //{api: 'ss', method: 'getInfoCamera', params: {basic: true, cameraIds: '2', eventDetection: true, privCamType: 3, camAppInfo: true, version: 8}, ParseFunction: parse.dIStsPollIngCameraEvent},
-    //{api: 'ss', method: 'motionEnumCameraEvent', params: {camId: 2}, ParseFunction: parse.dIStsPollIngCameraEvent},
-    //{api: 'ss', method: 'enumAlert', params: {camIdList: '2', typeList: '0,1,2,3,4,5,6,7', lock: '0' }, ParseFunction: parse.dIStsPollIngCameraEvent},
-    //{api: 'ss', method: 'listLogs', params: {cameraIds: "2"}, ParseFunction: parse.dIStsPollIngCameraEvent}, //События
-}
+//{api: 'ss', method: 'getInfoCamera', params: {basic: true, cameraIds: '2', eventDetection: true, privCamType: 3, camAppInfo: true, version: 8}, ParseFunction: parse.dIStsPollIngCameraEvent},
+//{api: 'ss', method: 'motionEnumCameraEvent', params: {camId: 2}, ParseFunction: parse.dIStsPollIngCameraEvent},
+//{api: 'ss', method: 'enumAlert', params: {camIdList: '2', typeList: '0,1,2,3,4,5,6,7', lock: '0' }, ParseFunction: parse.dIStsPollIngCameraEvent},
+//{api: 'ss', method: 'listLogs', params: {cameraIds: "2"}, ParseFunction: parse.dIStsPollIngCameraEvent}, //События
+//}
 
 /** **************************************************************/
 
@@ -1332,7 +1332,7 @@ function send(api, method, params, cb){
 
 function sendSSH(method, cb) {
     try {
-        var ssh = new simpleSSH({
+        const ssh = new simpleSSH({
             host: adapter.config.host,
             port: adapter.config.ssh_port || 22,
             user: adapter.config.login,
@@ -1565,6 +1565,7 @@ function setInfoConnection(val){
     adapter.getState('info.connection', function (err, state){
         if (!err && state !== null){
             if (state.val === val){
+                // empty block
             } else if (state.val !== val){
                 adapter.setState('info.connection', val, true);
             }
