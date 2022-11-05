@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 // @ts-check
 
 const utils = require('@iobroker/adapter-core');
@@ -87,7 +87,7 @@ function startAdapter(options){
         stateChange:  (id, state) => {
             if (id && state && !state.ack && !firstStart){
                 debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-                let ids = id.split(".");
+                let ids = id.split('.');
                 let name = ids[ids.length - 2].toString();
                 let command = ids[ids.length - 1].toString();
                 let val = state.val;
@@ -224,119 +224,119 @@ let states = {
 };
 
 const objects = {
-    album:                            {role: "media.album", name: "Album", type: "string", read: true, write: false},
-    artist:                           {role: "media.artist", name: "Artist", type: "string", read: true, write: false},
-    audio_show_virtual_library:       {role: "state", name: "Audio show virtual library", type: "boolean", read: true, write: false},
-    bitrate:                          {role: "media.bitrate", name: "Bitrate", type: "string", unit: "kbps", read: true, write: false},
-    Browser:                          {role: "media.browser", name: "AudioStation Browser Files", type: "string", read: true, write: true},
-    cameraNumber:                     {role: "state", name: "Camera number", type: "number", read: true, write: false},
-    capacity:                         {role: "state", name: "Capacity", type: "number", unit: "GB", read: true, write: false},
-    clearPlaylist:                    {role: "button", name: "Clear current playlist", type: "boolean", read: false, write: true},
-    cover:                            {role: "media.cover", name: "Media cover (eg. http://{ip}:8082/{state})", type: "string", read: true, write: false},
-    cpu_load:                         {role: "state", name: "Cpu load", type: "number", unit: "%", read: true, write: false},
-    current_duration:                 {role: "media.duration.text", name: "Playback duration", type: "string", read: true, write: false},
-    current_elapsed:                  {role: "media.elapsed.text", name: "Playback elapsed", type: "string", read: true, write: false},
-    current_play:                     {role: "media.track", name: "Controlling and state current play track number", type: "number", read: true, write: true},
-    disable_upnp:                     {role: "state", name: "Disable upnp", type: "boolean", read: true, write: false},
-    dsd_decode_capability:            {role: "state", name: "DSD decode capability", type: "boolean", read: true, write: false},
-    dtv:                              {role: "state", name: "DTV", type: "boolean", read: true, write: false},
-    dtv_transcode:                    {role: "state", name: "DTV transcode", type: "boolean", read: true, write: false},
-    duration:                         {role: "media.duration.text", name: "Duration track", type: "string", read: true, write: false},
-    duration_sec:                     {role: "media.duration", name: "Duration track in seconds", type: "number", read: true, write: false},
-    ebox_order:                       {role: "state", name: "Ebox order", type: "number", read: true, write: false},
-    enableVideoRelay:                 {role: "state", name: "Enable video relay", type: "boolean", read: true, write: false},
-    enable_download:                  {role: "state", name: "Enable download", type: "boolean", read: true, write: false},
-    enable_equalizer:                 {role: "state", name: "Enable equalizer", type: "boolean", read: true, write: false},
-    enable_iso_mount:                 {role: "state", name: "Enable ISO mount", type: "boolean", read: true, write: false},
-    enable_list_usergrp:              {role: "state", name: "Enable list user groups", type: "boolean", read: true, write: false},
-    enable_personal_library:          {role: "state", name: "Enable personal library", type: "boolean", read: true, write: false},
-    enable_remote_mount:              {role: "state", name: "Enable remote mount", type: "boolean", read: true, write: false},
-    enable_user_home:                 {role: "state", name: "User home", type: "boolean", read: true, write: true},
-    enabled:                          {role: "state", name: "Is enabled", type: "boolean", read: true, write: true},
-    favoriteRadio:                    {role: "state", name: "Favorite playlist Radio", type: "string", read: true, write: false},
-    fhd_hardware_transcode:           {role: "state", name: "FullHD hardware transcode", type: "boolean", read: true, write: false},
-    genre:                            {role: "media.genre", name: "Genre", type: "string", read: true, write: false},
-    geo_lat:                          {role: "state", name: "Geo latitude", type: "number", read: true, write: false},
-    geo_lng:                          {role: "state", name: "Geo longitude", type: "number", read: true, write: false},
-    geo_radius:                       {role: "state", name: "Geo radius", type: "number", read: true, write: false},
-    hardware_transcode:               {role: "state", name: "Hardware transcode", type: "boolean", read: true, write: false},
-    has_music_share:                  {role: "state", name: "Has music share", type: "boolean", read: true, write: false},
-    id:                               {role: "state", name: "ID", type: "number", read: true, write: false},
-    isLicenseEnough:                  {role: "state", name: "Is License Enough", type: "number", read: true, write: false},
-    is_dtv_enabled:                   {role: "state", name: "Is DTV enabled", type: "boolean", read: true, write: false},
-    is_manager:                       {role: "state", name: "Is manager", type: "boolean", read: true, write: false},
-    is_personal_metadata_key_enabled: {role: "state", name: "Is personal metadata key enabled", type: "boolean", read: true, write: false},
-    is_subtitle_search_enabled:       {role: "state", name: "Is subtitle search enabled", type: "boolean", read: true, write: false},
-    is_system_crashed:                {role: "state", name: "Is system crashed", type: "boolean", read: true, write: false},
-    liscenseNumber:                   {role: "state", name: "License Number", type: "number", read: true, write: false},
-    maxCameraSupport:                 {role: "state", name: "Max camera support", type: "number", read: true, write: false},
-    memory_size:                      {role: "state", name: "Memory size", type: "number", read: true, write: false},
-    memory_usage:                     {role: "state", name: "Memory usage", type: "number", unit: "%", read: true, write: false},
-    motionDetected:                   {role: "state", name: "Motion detected", type: "boolean", read: true, write: false},
-    next:                             {role: "button.next", name: "Controlling playback next", type: "boolean", read: false, write: true},
-    notify_on:                        {role: "state", name: "Notify on", type: "boolean", read: true, write: false},
-    offline_conversion:               {role: "state", name: "Offline conversion", type: "boolean", read: true, write: false},
-    onetime_disable_on:               {role: "state", name: "Onetime disable ON", type: "boolean", read: true, write: false},
-    onetime_enable_on:                {role: "state", name: "Onetime enable ON", type: "boolean", read: true, write: false},
-    online:                           {role: "state", name: "Is player online", type: "boolean", read: true, write: false},
-    path:                             {role: "media", name: "Path track", type: "string", read: true, write: false},
-    pause:                            {role: "button.pause", name: "Controlling playback pause", type: "boolean", read: false, write: true},
-    play:                             {role: "button.play", name: "Controlling playback play", type: "boolean", read: false, write: true},
-    play_folder:                      {role: "media.add", name: "Add tracks from the folder to the playlist", type: "string", read: true, write: true},
-    play_track:                       {role: "state", name: "Play track by its id", type: "string", read: true, write: true},
-    player_name:                      {role: "media", name: "Remote player name", type: "string", read: true, write: false},
-    playing_queue_max:                {role: "state", name: "Playing queue max", type: "number", read: true, write: false},
-    playlist:                         {role: "media.playlist", name: "AudioStation playlist", type: "string", read: true, write: true},
-    playlist_edit:                    {role: "state", name: "Playlist edit", type: "boolean", read: true, write: false},
-    playlist_total:                   {role: "media", name: "Number of tracks in the playlist", type: "number", read: true, write: false},
-    port:                             {role: "state", name: "Port", type: "number", read: true, write: false},
-    prefer_using_html5:               {role: "state", name: "Prefer using HTML5", type: "boolean", read: true, write: false},
-    prev:                             {role: "button.prev", name: "Controlling playback previous", type: "boolean", read: false, write: true},
-    ram:                              {role: "state", name: "RAM", type: "number", unit: "MB", read: true, write: false},
-    remindQuickconnectTunnel:         {role: "state", name: "Remind QuickConnect Tunnel", type: "boolean", read: true, write: false},
-    remote_controller:                {role: "state", name: "Remote controller", type: "boolean", read: true, write: false},
-    remote_player:                    {role: "state", name: "Remote player", type: "boolean", read: true, write: false},
-    remux:                            {role: "state", name: "Remux", type: "boolean", read: true, write: false},
-    renderer:                         {role: "state", name: "Renderer", type: "boolean", read: true, write: false},
-    repeat:                           {role: "media.mode.repeat", name: "Repeat control", type: "string", read: true, write: true, states: {none: "Off", all: "All", one: "One"}},
-    same_subnet:                      {role: "state", name: "Same subnet", type: "boolean", read: true, write: false},
-    seek:                             {role: "media.seek", name: "Controlling playback seek", type: "number", unit: "%", min: 0, max: 100, read: true, write: true},
-    serviceVolSize:                   {role: "state", name: "Service Volume Size", type: "number", read: true, write: false},
-    sharing:                          {role: "state", name: "Sharing", type: "boolean", read: true, write: false},
-    shuffle:                          {role: "media.mode.shuffle", name: "Shuffle control", type: "boolean", read: true, write: true},
-    software_transcode:               {role: "state", name: "Software transcode", type: "boolean", read: true, write: false},
-    song_id:                          {role: "media.playid", name: "Controlling and state current play track id", type: "number", read: true, write: true},
-    state_playing:                    {role: "media.state", name: "Status Play, stop, or pause", type: "string", read: true, write: false},
-    status_on:                        {role: "state", name: "HomeMode status", type: "boolean", read: true, write: true},
-    stop:                             {role: "button.stop", name: "Controlling playback stop", type: "boolean", read: false, write: true},
-    subplayer_volume:                 {role: "level.volume", name: "Subplayer volume if supported", type: "number", min: 0, max: 100, read: true, write: true},
-    support_bluetooth:                {role: "state", name: "Support bluetooth", type: "boolean", read: true, write: false},
-    support_file_request:             {role: "state", name: "Support file request", type: "boolean", read: true, write: false},
-    support_sharing:                  {role: "state", name: "Support sharing", type: "boolean", read: true, write: false},
-    support_usb:                      {role: "state", name: "Support USB", type: "boolean", read: true, write: false},
-    support_vfs:                      {role: "state", name: "Support VFS", type: "boolean", read: true, write: false},
-    support_virtual_library:          {role: "state", name: "Support virtual library", type: "boolean", read: true, write: false},
-    tag_edit:                         {role: "state", name: "Tag edit", type: "boolean", read: true, write: false},
-    temperature:                      {role: "state", name: "Temperature", type: "number", unit: "°C", read: true, write: false},
-    temperature_warn:                 {role: "state", name: "Temperature warn", type: "boolean", read: true, write: false},
-    timezone_offset:                  {role: "state", name: "Timezone offset", type: "number", read: true, write: false},
-    title:                            {role: "media.title", name: "Title", type: "string", read: true, write: false},
-    total_size:                       {role: "state", name: "Total size", type: "number", unit: "GB", read: true, write: false},
-    transcode:                        {role: "state", name: "Transcode", type: "boolean", read: true, write: false},
-    transcode_to_mp3:                 {role: "state", name: "Transcode to mp3", type: "boolean", read: true, write: false},
-    uid:                              {role: "state", name: "UID", type: "number", read: true, write: false},
-    upgrade_ready:                    {role: "state", name: "Upgrade ready", type: "boolean", read: true, write: false},
-    upnp_browse:                      {role: "state", name: "UPnP browse", type: "boolean", read: true, write: false},
-    uptime:                           {role: "state", name: "Uptime", type: "number", read: true, write: false},
-    used:                             {role: "state", name: "Used", type: "number", unit: "%", read: true, write: false},
-    used_size:                        {role: "state", name: "Used size", type: "number", unit: "GB", read: true, write: false},
-    version:                          {role: "state", name: "Version", type: "number", read: true, write: false},
-    volume:                           {role: "level.volume", name: "Volume", type: "number", min: 0, max: 100, read: true, write: true},
-    year:                             {role: "media.date", name: "Year", type: "number", read: true, write: false},
+    album:                            {role: 'media.album', name: 'Album', type: 'string', read: true, write: false},
+    artist:                           {role: 'media.artist', name: 'Artist', type: 'string', read: true, write: false},
+    audio_show_virtual_library:       {role: 'state', name: 'Audio show virtual library', type: 'boolean', read: true, write: false},
+    bitrate:                          {role: 'media.bitrate', name: 'Bitrate', type: 'string', unit: 'kbps', read: true, write: false},
+    Browser:                          {role: 'media.browser', name: 'AudioStation Browser Files', type: 'string', read: true, write: true},
+    cameraNumber:                     {role: 'state', name: 'Camera number', type: 'number', read: true, write: false},
+    capacity:                         {role: 'state', name: 'Capacity', type: 'number', unit: 'GB', read: true, write: false},
+    clearPlaylist:                    {role: 'button', name: 'Clear current playlist', type: 'boolean', read: false, write: true},
+    cover:                            {role: 'media.cover', name: 'Media cover (eg. http://{ip}:8082/{state})', type: 'string', read: true, write: false},
+    cpu_load:                         {role: 'state', name: 'Cpu load', type: 'number', unit: '%', read: true, write: false},
+    current_duration:                 {role: 'media.duration.text', name: 'Playback duration', type: 'string', read: true, write: false},
+    current_elapsed:                  {role: 'media.elapsed.text', name: 'Playback elapsed', type: 'string', read: true, write: false},
+    current_play:                     {role: 'media.track', name: 'Controlling and state current play track number', type: 'number', read: true, write: true},
+    disable_upnp:                     {role: 'state', name: 'Disable upnp', type: 'boolean', read: true, write: false},
+    dsd_decode_capability:            {role: 'state', name: 'DSD decode capability', type: 'boolean', read: true, write: false},
+    dtv:                              {role: 'state', name: 'DTV', type: 'boolean', read: true, write: false},
+    dtv_transcode:                    {role: 'state', name: 'DTV transcode', type: 'boolean', read: true, write: false},
+    duration:                         {role: 'media.duration.text', name: 'Duration track', type: 'string', read: true, write: false},
+    duration_sec:                     {role: 'media.duration', name: 'Duration track in seconds', type: 'number', read: true, write: false},
+    ebox_order:                       {role: 'state', name: 'Ebox order', type: 'number', read: true, write: false},
+    enableVideoRelay:                 {role: 'state', name: 'Enable video relay', type: 'boolean', read: true, write: false},
+    enable_download:                  {role: 'state', name: 'Enable download', type: 'boolean', read: true, write: false},
+    enable_equalizer:                 {role: 'state', name: 'Enable equalizer', type: 'boolean', read: true, write: false},
+    enable_iso_mount:                 {role: 'state', name: 'Enable ISO mount', type: 'boolean', read: true, write: false},
+    enable_list_usergrp:              {role: 'state', name: 'Enable list user groups', type: 'boolean', read: true, write: false},
+    enable_personal_library:          {role: 'state', name: 'Enable personal library', type: 'boolean', read: true, write: false},
+    enable_remote_mount:              {role: 'state', name: 'Enable remote mount', type: 'boolean', read: true, write: false},
+    enable_user_home:                 {role: 'state', name: 'User home', type: 'boolean', read: true, write: true},
+    enabled:                          {role: 'state', name: 'Is enabled', type: 'boolean', read: true, write: true},
+    favoriteRadio:                    {role: 'state', name: 'Favorite playlist Radio', type: 'string', read: true, write: false},
+    fhd_hardware_transcode:           {role: 'state', name: 'FullHD hardware transcode', type: 'boolean', read: true, write: false},
+    genre:                            {role: 'media.genre', name: 'Genre', type: 'string', read: true, write: false},
+    geo_lat:                          {role: 'state', name: 'Geo latitude', type: 'number', read: true, write: false},
+    geo_lng:                          {role: 'state', name: 'Geo longitude', type: 'number', read: true, write: false},
+    geo_radius:                       {role: 'state', name: 'Geo radius', type: 'number', read: true, write: false},
+    hardware_transcode:               {role: 'state', name: 'Hardware transcode', type: 'boolean', read: true, write: false},
+    has_music_share:                  {role: 'state', name: 'Has music share', type: 'boolean', read: true, write: false},
+    id:                               {role: 'state', name: 'ID', type: 'number', read: true, write: false},
+    isLicenseEnough:                  {role: 'state', name: 'Is License Enough', type: 'number', read: true, write: false},
+    is_dtv_enabled:                   {role: 'state', name: 'Is DTV enabled', type: 'boolean', read: true, write: false},
+    is_manager:                       {role: 'state', name: 'Is manager', type: 'boolean', read: true, write: false},
+    is_personal_metadata_key_enabled: {role: 'state', name: 'Is personal metadata key enabled', type: 'boolean', read: true, write: false},
+    is_subtitle_search_enabled:       {role: 'state', name: 'Is subtitle search enabled', type: 'boolean', read: true, write: false},
+    is_system_crashed:                {role: 'state', name: 'Is system crashed', type: 'boolean', read: true, write: false},
+    liscenseNumber:                   {role: 'state', name: 'License Number', type: 'number', read: true, write: false},
+    maxCameraSupport:                 {role: 'state', name: 'Max camera support', type: 'number', read: true, write: false},
+    memory_size:                      {role: 'state', name: 'Memory size', type: 'number', read: true, write: false},
+    memory_usage:                     {role: 'state', name: 'Memory usage', type: 'number', unit: '%', read: true, write: false},
+    motionDetected:                   {role: 'state', name: 'Motion detected', type: 'boolean', read: true, write: false},
+    next:                             {role: 'button.next', name: 'Controlling playback next', type: 'boolean', read: false, write: true},
+    notify_on:                        {role: 'state', name: 'Notify on', type: 'boolean', read: true, write: false},
+    offline_conversion:               {role: 'state', name: 'Offline conversion', type: 'boolean', read: true, write: false},
+    onetime_disable_on:               {role: 'state', name: 'Onetime disable ON', type: 'boolean', read: true, write: false},
+    onetime_enable_on:                {role: 'state', name: 'Onetime enable ON', type: 'boolean', read: true, write: false},
+    online:                           {role: 'state', name: 'Is player online', type: 'boolean', read: true, write: false},
+    path:                             {role: 'media', name: 'Path track', type: 'string', read: true, write: false},
+    pause:                            {role: 'button.pause', name: 'Controlling playback pause', type: 'boolean', read: false, write: true},
+    play:                             {role: 'button.play', name: 'Controlling playback play', type: 'boolean', read: false, write: true},
+    play_folder:                      {role: 'media.add', name: 'Add tracks from the folder to the playlist', type: 'string', read: true, write: true},
+    play_track:                       {role: 'state', name: 'Play track by its id', type: 'string', read: true, write: true},
+    player_name:                      {role: 'media', name: 'Remote player name', type: 'string', read: true, write: false},
+    playing_queue_max:                {role: 'state', name: 'Playing queue max', type: 'number', read: true, write: false},
+    playlist:                         {role: 'media.playlist', name: 'AudioStation playlist', type: 'string', read: true, write: true},
+    playlist_edit:                    {role: 'state', name: 'Playlist edit', type: 'boolean', read: true, write: false},
+    playlist_total:                   {role: 'media', name: 'Number of tracks in the playlist', type: 'number', read: true, write: false},
+    port:                             {role: 'state', name: 'Port', type: 'number', read: true, write: false},
+    prefer_using_html5:               {role: 'state', name: 'Prefer using HTML5', type: 'boolean', read: true, write: false},
+    prev:                             {role: 'button.prev', name: 'Controlling playback previous', type: 'boolean', read: false, write: true},
+    ram:                              {role: 'state', name: 'RAM', type: 'number', unit: 'MB', read: true, write: false},
+    remindQuickconnectTunnel:         {role: 'state', name: 'Remind QuickConnect Tunnel', type: 'boolean', read: true, write: false},
+    remote_controller:                {role: 'state', name: 'Remote controller', type: 'boolean', read: true, write: false},
+    remote_player:                    {role: 'state', name: 'Remote player', type: 'boolean', read: true, write: false},
+    remux:                            {role: 'state', name: 'Remux', type: 'boolean', read: true, write: false},
+    renderer:                         {role: 'state', name: 'Renderer', type: 'boolean', read: true, write: false},
+    repeat:                           {role: 'media.mode.repeat', name: 'Repeat control', type: 'string', read: true, write: true, states: {none: 'Off', all: 'All', one: 'One'}},
+    same_subnet:                      {role: 'state', name: 'Same subnet', type: 'boolean', read: true, write: false},
+    seek:                             {role: 'media.seek', name: 'Controlling playback seek', type: 'number', unit: '%', min: 0, max: 100, read: true, write: true},
+    serviceVolSize:                   {role: 'state', name: 'Service Volume Size', type: 'number', read: true, write: false},
+    sharing:                          {role: 'state', name: 'Sharing', type: 'boolean', read: true, write: false},
+    shuffle:                          {role: 'media.mode.shuffle', name: 'Shuffle control', type: 'boolean', read: true, write: true},
+    software_transcode:               {role: 'state', name: 'Software transcode', type: 'boolean', read: true, write: false},
+    song_id:                          {role: 'media.playid', name: 'Controlling and state current play track id', type: 'number', read: true, write: true},
+    state_playing:                    {role: 'media.state', name: 'Status Play, stop, or pause', type: 'string', read: true, write: false},
+    status_on:                        {role: 'state', name: 'HomeMode status', type: 'boolean', read: true, write: true},
+    stop:                             {role: 'button.stop', name: 'Controlling playback stop', type: 'boolean', read: false, write: true},
+    subplayer_volume:                 {role: 'level.volume', name: 'Subplayer volume if supported', type: 'number', min: 0, max: 100, read: true, write: true},
+    support_bluetooth:                {role: 'state', name: 'Support bluetooth', type: 'boolean', read: true, write: false},
+    support_file_request:             {role: 'state', name: 'Support file request', type: 'boolean', read: true, write: false},
+    support_sharing:                  {role: 'state', name: 'Support sharing', type: 'boolean', read: true, write: false},
+    support_usb:                      {role: 'state', name: 'Support USB', type: 'boolean', read: true, write: false},
+    support_vfs:                      {role: 'state', name: 'Support VFS', type: 'boolean', read: true, write: false},
+    support_virtual_library:          {role: 'state', name: 'Support virtual library', type: 'boolean', read: true, write: false},
+    tag_edit:                         {role: 'state', name: 'Tag edit', type: 'boolean', read: true, write: false},
+    temperature:                      {role: 'state', name: 'Temperature', type: 'number', unit: '°C', read: true, write: false},
+    temperature_warn:                 {role: 'state', name: 'Temperature warn', type: 'boolean', read: true, write: false},
+    timezone_offset:                  {role: 'state', name: 'Timezone offset', type: 'number', read: true, write: false},
+    title:                            {role: 'media.title', name: 'Title', type: 'string', read: true, write: false},
+    total_size:                       {role: 'state', name: 'Total size', type: 'number', unit: 'GB', read: true, write: false},
+    transcode:                        {role: 'state', name: 'Transcode', type: 'boolean', read: true, write: false},
+    transcode_to_mp3:                 {role: 'state', name: 'Transcode to mp3', type: 'boolean', read: true, write: false},
+    uid:                              {role: 'state', name: 'UID', type: 'number', read: true, write: false},
+    upgrade_ready:                    {role: 'state', name: 'Upgrade ready', type: 'boolean', read: true, write: false},
+    upnp_browse:                      {role: 'state', name: 'UPnP browse', type: 'boolean', read: true, write: false},
+    uptime:                           {role: 'state', name: 'Uptime', type: 'number', read: true, write: false},
+    used:                             {role: 'state', name: 'Used', type: 'number', unit: '%', read: true, write: false},
+    used_size:                        {role: 'state', name: 'Used size', type: 'number', unit: 'GB', read: true, write: false},
+    version:                          {role: 'state', name: 'Version', type: 'number', read: true, write: false},
+    volume:                           {role: 'level.volume', name: 'Volume', type: 'number', min: 0, max: 100, read: true, write: true},
+    year:                             {role: 'media.date', name: 'Year', type: 'number', read: true, write: false},
 };
 
 let PollCmd = {
-    "firstPoll": [
+    'firstPoll': [
         {api: 'dsm', method: 'getPollingData', params: {}, ParseFunction: parseInstallingPackets}, // OR listPackages if < 6 || 7 See in main function
         //{api: 'dsm', method: 'listPackages', params: {}, ParseFunction: parseInstallingPackets}, // OR listPackages if < 6 || 7 See in main function
         {api: 'dsm', method: 'getInfo', params: {}, ParseFunction: parseInfo},
@@ -350,18 +350,18 @@ let PollCmd = {
         {api: 'ss', method: 'listCameras', params: {basic: true, version: 7}, ParseFunction: parselistCameras},
         {api: 'as', method: 'listRemotePlayers', params: {type: 'all', additional: 'subplayer_list'}, ParseFunction: parseListRemotePlayers},
     ],
-    "fastPoll":  [
+    'fastPoll':  [
         {api: 'dsm', method: 'getSystemUtilization', params: {}, ParseFunction: parseSystemUtilization},
         {api: 'dsm', method: 'getSystemStatus', params: {}, ParseFunction: parseSystemStatus},
         {api: 'dsm', method: 'getInfo', params: {}, ParseFunction: parseTempInfo},
-        {api: 'dsm', method: 'infoSystem', params: {type: "storage", version: 1}, ParseFunction: parseInfoSystem},
+        {api: 'dsm', method: 'infoSystem', params: {type: 'storage', version: 1}, ParseFunction: parseInfoSystem},
         getStatusPlayer,
         {api: 'ss', method: 'getInfoHomeMode', params: {need_mobiles: true}, ParseFunction: parseInfoHomeMode},
         {api: 'ss', method: 'listCameras', params: {basic: true, version: 7}, ParseFunction: parselistCameras},
         {api: 'dl', method: 'getConfigSchedule', params: {}, ParseFunction: parsegetConfigSchedule},
         {api: 'fs', method: 'listSharings', params: {}, ParseFunction: parseListSharings},
     ],
-    "slowPoll":  [
+    'slowPoll':  [
         {api: 'as', method: 'listRemotePlayers', params: {type: 'all', additional: 'subplayer_list'}, ParseFunction: parseListRemotePlayers},
         {api: 'dl', method: 'listTasks', params: {}, ParseFunction: parselistTasks},
         {api: 'as', method: 'listRadios', params: {container: 'Favorite', limit: 1000, library: 'shared', sort_direction: 'ASC'}, ParseFunction: parselistRadios},
@@ -520,7 +520,7 @@ function addDownload(command, url, cb){
     if (url){
         debug('addDownload');
         if (command === 'add_hash_download') url = `magnet:?xt=urn:btih:${url}`;
-        let param = {type: "url", create_list: true, uri: [url], version: 2};
+        let param = {type: 'url', create_list: true, uri: [url], version: 2};
         adapter.getState('DownloadStation.folder', (err, state) => {
             if (!err && state) param.destination = state.val;
             send('dl', 'createTask', param, (res) => {
@@ -806,7 +806,7 @@ function PlayFolder(playerid, folder){
                     offset:             0,
                     limit:              0,
                     play:               true,
-                    containers_json:    JSON.stringify([{"type": "folder", "id": folder, "recursive": true, "sort_by": "title", "sort_direction": "ASC"}])
+                    containers_json:    JSON.stringify([{'type': 'folder', 'id': folder, 'recursive': true, 'sort_by': 'title', 'sort_direction': 'ASC'}])
                 };
                 send('as', 'updatePlayListRemotePlayer', param, () => { //add folder to playlist
                     send('as', 'controlRemotePlayer', {id: playerid, action: 'play'});
@@ -918,17 +918,17 @@ function parsePlayListRemotePlayer(playerid, res){
             let arr = res.songs;
             arr.forEach((k, i) => {
                 playlist[i] = {
-                    "id":      arr[i].id,
-                    "artist":  "",
-                    "album":   "",
-                    "bitrate": 0,
-                    "title":   arr[i].title,
-                    "file":    arr[i].path,
-                    "genre":   "",
-                    "year":    0,
-                    "len":     "00:00",
-                    "rating":  "",
-                    "cover":   ""
+                    'id':      arr[i].id,
+                    'artist':  '',
+                    'album':   '',
+                    'bitrate': 0,
+                    'title':   arr[i].title,
+                    'file':    arr[i].path,
+                    'genre':   '',
+                    'year':    0,
+                    'len':     '00:00',
+                    'rating':  '',
+                    'cover':   ''
                 }
             });
         }
@@ -947,17 +947,17 @@ function parselistRadios(res){
                 let arr = res.radios;
                 arr.forEach((k, i) => {
                     radio_playlist[i] = {
-                        "id":      arr[i].id,
-                        "artist":  "",
-                        "album":   "",
-                        "bitrate": arr[i].desc ? arr[i].desc.match(/\(.*?(\d+)/)[1] :"",
-                        "title":   arr[i].title,
-                        "file":    arr[i].url,
-                        "genre":   "",
-                        "year":    0,
-                        "len":     "00:00",
-                        "rating":  "",
-                        "cover":   ""
+                        'id':      arr[i].id,
+                        'artist':  '',
+                        'album':   '',
+                        'bitrate': arr[i].desc ? arr[i].desc.match(/\(.*?(\d+)/)[1] :'',
+                        'title':   arr[i].title,
+                        'file':    arr[i].url,
+                        'genre':   '',
+                        'year':    0,
+                        'len':     '00:00',
+                        'rating':  '',
+                        'cover':   ''
                     }
                 });
                 Object.keys(states.AudioStation.players).forEach((playerid) => {
@@ -1244,7 +1244,7 @@ function sendPolling(namePolling){
                     if (!err && res){
                         if (!connect) setInfoConnection(true);
                         connect = true;
-                        if (typeof poll.ParseFunction === "function"){
+                        if (typeof poll.ParseFunction === 'function'){
                             poll.ParseFunction(res, api);
                         } else {
                             error('ParseFunction', `syno[${api}][${method}] Error - Not Function!`);
