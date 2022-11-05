@@ -159,7 +159,7 @@ function startAdapter(options){
                         pauseTask(command, val);
                         break;
                     case 'enabled':
-                         switchCam(name, command, val);
+                        switchCam(name, command, val);
                         break;
                     case 'status_on':
                         send('ss', 'switchHomeMode', {on: val});
@@ -1060,18 +1060,18 @@ function parseInfoSystem(res){
             };
         });
         if (res.vol_info) {
-        res.vol_info.forEach((key) => {
-            const volname = key.name.toLowerCase();
-            states.DiskStationManager.vol_info[volname] = {
-                'name':       key.name,
-                'status':     key.status,
-                'total_size': parseFloat(((key.total_size / 1073741824).toFixed(2))),
-                'used_size':  parseFloat(((key.used_size / 1073741824).toFixed(2))),
-                'used':       parseFloat((((key.used_size / key.total_size) * 100).toFixed(2))),
-                'desc':       key. desc || key.vol_desc
-            };
-        });
-    }
+            res.vol_info.forEach((key) => {
+                const volname = key.name.toLowerCase();
+                states.DiskStationManager.vol_info[volname] = {
+                    'name':       key.name,
+                    'status':     key.status,
+                    'total_size': parseFloat(((key.total_size / 1073741824).toFixed(2))),
+                    'used_size':  parseFloat(((key.used_size / 1073741824).toFixed(2))),
+                    'used':       parseFloat((((key.used_size / key.total_size) * 100).toFixed(2))),
+                    'desc':       key. desc || key.vol_desc
+                };
+            });
+        }
     }
 }
 
