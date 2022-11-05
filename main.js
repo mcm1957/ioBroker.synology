@@ -24,7 +24,7 @@ let dir;
 let old_states;
 let timeOut;
 // let pathInstance;
-let verifiedObjects = {};
+const verifiedObjects = {};
 
 const stateSS = {
     recStatus:  {
@@ -87,10 +87,10 @@ function startAdapter(options){
         stateChange:  (id, state) => {
             if (id && state && !state.ack && !firstStart){
                 debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-                let ids = id.split('.');
-                let name = ids[ids.length - 2].toString();
-                let command = ids[ids.length - 1].toString();
-                let val = state.val;
+                const ids = id.split('.');
+                const name = ids[ids.length - 2].toString();
+                const command = ids[ids.length - 1].toString();
+                const val = state.val;
                 switch (command) {
                     case 'reboot':
                         sendSSH('shutdown -r now', () => {
@@ -204,7 +204,7 @@ function startAdapter(options){
     }));
 }
 
-let states = {
+const states = {
     DiskStationManager:  {info: {}, hdd_info: {}, vol_info: {}},
     FileStation:         {info: {}, sharing: {}},
     DownloadStation:     {info: {}},
@@ -335,7 +335,7 @@ const objects = {
     year:                             {role: 'media.date', name: 'Year', type: 'number', read: true, write: false},
 };
 
-let PollCmd = {
+const PollCmd = {
     'firstPoll': [
         {api: 'dsm', method: 'getPollingData', params: {}, ParseFunction: parseInstallingPackets}, // OR listPackages if < 6 || 7 See in main function
         //{api: 'dsm', method: 'listPackages', params: {}, ParseFunction: parseInstallingPackets}, // OR listPackages if < 6 || 7 See in main function
@@ -373,7 +373,7 @@ let PollCmd = {
 /************************ SurveillanceStation ***********************/
 
 const getIdsCams = () => {
-    let ids = [];
+    const ids = [];
     Object.keys(states.SurveillanceStation.cameras).forEach((nameCam) => {
         if (nameCam !== undefined) ids.push(states.SurveillanceStation.cameras[nameCam].id);
     });
@@ -381,7 +381,7 @@ const getIdsCams = () => {
 };
 
 const getNameCams = (id) => {
-    for (let nameCam in states.SurveillanceStation.cameras) {
+    for (const nameCam in states.SurveillanceStation.cameras) {
         if (!states.SurveillanceStation.cameras.hasOwnProperty(nameCam)) continue;
         if (states.SurveillanceStation.cameras[nameCam].id === id){
             return nameCam;
@@ -390,9 +390,9 @@ const getNameCams = (id) => {
 };
 
 function switchCam(name, command, val){
-    let method = !!val ? 'enableCamera' :'disableCamera';
+    const method = !!val ? 'enableCamera' :'disableCamera';
     if (name !== 'undefined' && states.SurveillanceStation.cameras[name]) {
-        let camId = states.SurveillanceStation.cameras[name].id.toString();
+        const camId = states.SurveillanceStation.cameras[name].id.toString();
         send('ss', method, {cameraIds: camId, blIncludeDeletedCam: false, version: 7});
     }
 }
@@ -435,7 +435,7 @@ function getSnapshotCamera(camid, cb){
     const param = {cameraId: camid, preview: true, version: 7};
     send('ss', 'getSnapshotCamera', param, async (res) => {
         if (res && !res.code && !res.message){
-            let buf = Buffer.from(res, 'binary');
+            const buf = Buffer.from(res, 'binary');
             try {
                 await adapter.writeFileAsync(adapter.namespace, `snapshotCam_${camid}.jpg`, buf);
                 fs.writeFileSync(`${dir}snapshotCam_${camid}.jpg`, buf);
@@ -459,7 +459,7 @@ function parselistEvents(res){
 
 function parselistCameras(res){
     debug(`listCameras - Response: ${JSON.stringify(res)}`);
-    let arr = res.cameras;
+    const arr = res.cameras;
     arr.forEach((k, i) => {
 
         if(arr[i].newName) {
@@ -520,7 +520,7 @@ function addDownload(command, url, cb){
     if (url){
         debug('addDownload');
         if (command === 'add_hash_download') url = `magnet:?xt=urn:btih:${url}`;
-        let param = {type: 'url', create_list: true, uri: [url], version: 2};
+        const param = {type: 'url', create_list: true, uri: [url], version: 2};
         adapter.getState('DownloadStation.folder', (err, state) => {
             if (!err && state) param.destination = state.val;
             send('dl', 'createTask', param, (res) => {
@@ -593,7 +593,7 @@ function parsegetConfigSchedule(res){
 function parselistTasks(res){
     debug(`listTasks - Response: ${JSON.stringify(res)}`);
     if (res && !res.message){
-        let task = [];
+        const task = [];
         res.tasks.forEach((obj) => {
             if (obj.status !== 'finished'){
                 task.push(obj);
@@ -648,7 +648,7 @@ async function getStatusPlayer(cb){
     function getOneStatusPlayer(playerid) {
         return new Promise((resolve, reject) => {
             debug(`* getStatusPlayer ${playerid}`);
-            let param = {
+            const param = {
                 id: playerid, additional: 'song_tag, song_audio, subplayer_volume'
             };
             send('as', 'getStatusRemotePlayerStatus', param, (res) => {
@@ -703,7 +703,7 @@ function getSongCover(playerid, cb){
         old_states.AudioStation.players[playerid].song_id = track;
         send('as', 'getSongCover', {id: track}, async (res) => {
             if (res && !res.message){
-                let buf = Buffer.from(res, 'binary');
+                const buf = Buffer.from(res, 'binary');
                 await adapter.writeFileAsync(adapter.namespace, 'cover.jpg', buf);
                 states.AudioStation.players[playerid].cover = `../${adapter.namespace}/cover.jpg`;
             } else {
@@ -733,7 +733,7 @@ function Browser(playerid, val){
         } else {
             try {
                 const obj = JSON.parse(states.AudioStation.players[playerid].Browser);
-                for (let dir_id in obj.files) {
+                for (const dir_id in obj.files) {
                     if (!obj.files.hasOwnProperty(dir_id)) continue;
                     if (obj.files[dir_id].file === val){
                         param = {id: obj.files[dir_id].id};
@@ -746,7 +746,7 @@ function Browser(playerid, val){
         }
     }
     send('as', 'listFolders', param, (res) => {
-        let arr = {files: []};
+        const arr = {files: []};
         if (res && res.items) {
             res.items.forEach((k, i) => {
                 let filetype = 'file';
@@ -768,7 +768,7 @@ function Browser(playerid, val){
 
 function PlayControl(playerid, cmd, val){
     debug('PlayControl');
-    let param = {
+    const param = {
         id:     playerid,
         action: cmd,
         value:  null
@@ -846,8 +846,8 @@ function PlayTrackNum(playerid, val){
 function PlayTrackId(playerid, val){
     debug('PlayTrack');
     try {
-        let arr = JSON.parse(states.AudioStation.players[playerid].playlist);
-        let track = arr.findIndex(item => item.id === val);
+        const arr = JSON.parse(states.AudioStation.players[playerid].playlist);
+        const track = arr.findIndex(item => item.id === val);
         if (track){
             send('as', 'controlRemotePlayer', {id: playerid, action: 'play', value: track});
         } else {
@@ -884,7 +884,7 @@ function parseRemotePlayerStatus(playerid, res){
     debug(`RemotePlayerStatus - Response: ${JSON.stringify(res)}`);
     try {
         if (res && res.index !== undefined){
-            let seek = parseFloat(((res.position / res.song.additional.song_audio.duration) * 100).toFixed(4));
+            const seek = parseFloat(((res.position / res.song.additional.song_audio.duration) * 100).toFixed(4));
             states.AudioStation.players[playerid].current_play = parseInt(res.index, 10);
             states.AudioStation.players[playerid].playlist_total = res.playlist_total;
             states.AudioStation.players[playerid].volume = res.volume;
@@ -913,9 +913,9 @@ function parseRemotePlayerStatus(playerid, res){
 function parsePlayListRemotePlayer(playerid, res){
     debug(`PlayListRemotePlayer - Response: ${JSON.stringify(res)}`);
     try {
-        let playlist = [];
+        const playlist = [];
         if (res && res.songs){
-            let arr = res.songs;
+            const arr = res.songs;
             arr.forEach((k, i) => {
                 playlist[i] = {
                     'id':      arr[i].id,
@@ -942,9 +942,9 @@ function parselistRadios(res){
     debug(`listRadios - Response: ${JSON.stringify(res)}`);
     if (res && !res.message){
         try {
-            let radio_playlist = [];
+            const radio_playlist = [];
             if (res.radios){
-                let arr = res.radios;
+                const arr = res.radios;
                 arr.forEach((k, i) => {
                     radio_playlist[i] = {
                         'id':      arr[i].id,
@@ -1008,8 +1008,8 @@ function DeleteSharing(command, id){
 
 function parseListSharings(res){
     debug(`parseListSharings - Response: ${JSON.stringify(res)}`);
-    let arr = res.links;
-    let temp_array = [];
+    const arr = res.links;
+    const temp_array = [];
     arr.forEach((k, i) => {
         if (arr[i].id){
             temp_array[i] = {
@@ -1037,7 +1037,7 @@ function parseListSharings(res){
 
 function CreateSharings(res){
     debug(`parseCreateSharings - Response: ${JSON.stringify(res)}`);
-    let arr = res.links;
+    const arr = res.links;
     states.FileStation.sharing['last_url'] = JSON.stringify(arr[0].url);
     states.FileStation.sharing['last_qrcode'] = JSON.stringify(arr[0].qrcode);
 }
@@ -1079,9 +1079,9 @@ function parseInstallingPackets(res){
     debug(`InstallingPackets - Response: ${JSON.stringify(res)}`);
     if (res && res.packages){
         if (!Array.isArray(res.packages)){
-            for (let fullname in res.packages) { // for getPollingData
+            for (const fullname in res.packages) { // for getPollingData
                 if (!res.packages.hasOwnProperty(fullname)) continue;
-                for (let name in states.api) {
+                for (const name in states.api) {
                     if (!states.api.hasOwnProperty(name)) continue;
                     if (states.api[name].name === fullname){
                         states.api[name]['installed'] = res.packages[fullname];
@@ -1089,9 +1089,9 @@ function parseInstallingPackets(res){
                 }
             }
         } else {
-            let arr = res.packages; // for listPackages
+            const arr = res.packages; // for listPackages
             arr.forEach((obj) => {
-                for (let name in states.api) {
+                for (const name in states.api) {
                     if (!states.api.hasOwnProperty(name)) continue;
                     if (states.api[name].name === obj.id){
                         states.api[name]['installed'] = true;
@@ -1125,9 +1125,9 @@ function parseInfo(res, api){
 
 function setAllInstalledForDsm7 (VersionString){
     if(VersionString === null ) return
-    let VersionMatch = VersionString.match(/^DSM ([0-9]+)\./)
+    const VersionMatch = VersionString.match(/^DSM ([0-9]+)\./)
     if (!VersionMatch || !VersionMatch[1]) return
-    let VersionNumString = VersionMatch[1];
+    const VersionNumString = VersionMatch[1];
     info(`DSM ${VersionNumString}`)
 
     if(VersionNumString === '7' || VersionNumString === 7){
@@ -1409,7 +1409,7 @@ async function setObject(id, val){
         } catch (e) {
             // ignore
         }
-        let common = {
+        const common = {
             name: id, desc: id, type: 'string', role: 'state'
         };
         let _id = id.split('.');
@@ -1473,7 +1473,7 @@ async function setObject(id, val){
 }
 
 function error(src, e, cb){
-    let code = e.code;
+    const code = e.code;
     let message;
     if (e.message === undefined){
         message = e;
@@ -1583,7 +1583,7 @@ function rePollAfterCmd(){
 }
 
 function isInstalled(fullname){
-    for (let api in states.api) {
+    for (const api in states.api) {
         if (!states.api.hasOwnProperty(api)) continue;
         if (states.api[api].name === fullname){
             return api;
@@ -1606,15 +1606,15 @@ const unixToDate = (timestamp) => {
     return moment.unix(timestamp).format('DD/MM/YYYY, HH:mm');
 };
 const dateToUnix = (date) => {
-    let ts = moment(date).unix();
+    const ts = moment(date).unix();
     return moment.unix(ts);
 };
 
 function secToText(sec) {
     let res;
     let m = Math.floor(sec / 60);
-    let s = sec % 60;
-    let h = Math.floor(m / 60);
+    const s = sec % 60;
+    const h = Math.floor(m / 60);
     m = m % 60;
     if (h > 0){
         res = `${pad2(h)}:${pad2(m)}:${pad2(s)}`;
@@ -1625,7 +1625,7 @@ function secToText(sec) {
 }
 
 function pad2(num){
-    let s = num.toString();
+    const s = num.toString();
     return (s.length < 2) ? `0${s}` :s;
 }
 
